@@ -15,7 +15,7 @@ let linksRef = db.ref('links');
 var app = new Vue({
   el: '#app',
   data: function () {
-    return{
+    return {
       links: [],
       newLink: {
         page: '',
@@ -25,26 +25,26 @@ var app = new Vue({
     }
   },
   methods: {
-    addLink: function() {
+    addLink: function () {
       linksRef.push(this.newLink)
       this.reloadTable();
       this.newLink.page = '';
       this.newLink.description = '';
       this.newLink.url = '';
     },
-    deleteLink: function(link) {
+    deleteLink: function (link) {
       linksRef.child(link[0].key).remove();
       this.reloadTable();
     },
-    reloadTable () {
+    reloadTable() {
       var that = this;
       that.links = []
       var query = linksRef.orderByKey();
-      query.once('value',function(snap) {
-        snap.forEach(function(item) {
+      query.once('value', function (snap) {
+        snap.forEach(function (item) {
           var data = []
           var itemVal = item.val();
-          var itemKey = {key: item.key};
+          var itemKey = { key: item.key };
           data.push(itemKey)
           data.push(itemVal)
           //console.log(data)
